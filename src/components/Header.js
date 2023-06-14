@@ -40,8 +40,13 @@ const Header = () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
     if (element) {
-      // ? scroll to element plus 70px to account for the fixed header
-      const y = element.getBoundingClientRect().top + window.scrollY - 70;
+      // ? scroll to element plus 70px to account for the fixed header only if scrolling up
+
+      const y =
+        scrollY > element.offsetTop
+          ? element.offsetTop - 70
+          : element.offsetTop;
+
       window.scrollTo({ top: y, behavior: "smooth" });
 
       // ? alternative method does not account for the fixed header
