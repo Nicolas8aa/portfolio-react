@@ -39,7 +39,7 @@ const ContactMeSection = () => {
           .required("Email is required")
           .email("Invalid email address"),
         type: Yup.string(),
-        message: Yup.string().required("Message is required"),
+        message: Yup.string().required("Message is required").min(25, 'Message must be at least 25 characters'),
       }),
     }
   );
@@ -47,8 +47,8 @@ const ContactMeSection = () => {
   useEffect(() => {
     if (response) {
       onOpen(response.type, response.message);
+      if(response.type === "success") formik.resetForm()
     }
-    formik.resetForm();
   }, [response]);
 
   const getIsInvalid = (name) => touched[name] && errors[name];
